@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Custom Registration</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <style>
+            body{
+            background-color: #F0F4E7;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-6 m-5">
+            <img src="https://pbs.twimg.com/media/F4nXbsNWcAAl7uD?format=png&name=small" class="w-50">
+        </div>
+        <div class="col">
+            <div class="row">
+                <h1 style="font-size: 32px; font-family: Inter; color: #3C9E0E" class=" text-center">Register</h1>
+            </div>
+            <div class="row m-5">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="row m-2">
+                        <label for="name"  style="font-size: 18px; font-family: Inter; color: #3C9E0E" class="text-center">Name:</label>
+                        <input type="text" id="name" name="name" class="w-50">
+                    </div>
+                    <div class="row m-2">
+                        <label for="surname" style="font-size: 18px; font-family: Inter; color: #3C9E0E" class="text-center">Surname:</label>
+                        <input type="text" id="surname" name="surname" class="w-50">
+                    </div>
+                    <div class="row m-2">
+                        <label for="phone" style="font-size: 18px; font-family: Inter; color: #3C9E0E" class="text-center">Phone:</label>
+                        <input type="text" id="phone" name="phone" class="w-50">
+                    </div>
+                    <div class="row m-2">
+                        <label for="age" style="font-size: 18px; font-family: Inter; color: #3C9E0E" class="text-center">Age:</label>
+                        <input type="text" id="age" name="age" class="w-50">
+                    </div>
+                    <div class="row m-2">
+                        <label for="address" style="font-size: 18px; font-family: Inter; color: #3C9E0E" class="text-center">Address:</label>
+                        <input type="text" id="address" name="address" class="w-50">
+                    </div>
+                    <div class="row m-2">
+                        <label for="email" style="font-size: 18px; font-family: Inter; color: #3C9E0E" class="text-center">Email:</label>
+                        <input type="email" id="email" name="email" class="w-50">
+                    </div>
+                    <div class="row m-2">
+                        <label for="password" style="font-size: 18px; font-family: Inter; color: #3C9E0E" class="text-center">Password:</label>
+                        <input type="password" id="password" name="password" class="w-50">
+                    </div>
+                    <div class="row m-2">
+                        <label for="passwordConfirm" style="font-size: 18px; font-family: Inter; color: #3C9E0E" class="text-center">Confirm Password:</label>
+                        <input type="password" id="passwordConfirm" name="passwordConfirm" class="w-50">
+                    </div>
+                    <div class="row m-2" style="width: 250px" >
+                        <button  style="background-color: #17AF39" type="submit" class="btn text-white text-center rounded-75">Sign In</button>
+                    </div>
+                </form>
+            </div>
+            <div class="row m-2">
+                <p class="text-center text-success" style="font-size: 14px; font-family: Inter">Already have an account? <a class="text-white btn btn-success " href="{% url 'custom_login' %}">Login</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+
+

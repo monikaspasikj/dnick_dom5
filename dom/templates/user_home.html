@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <meta charset="utf-8">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+<div class="row">
+            <nav style="background-color: #AAE7B7; height: 95px" class="navbar w-100 navbar-expand">
+              <a class="navbar-brand" href="{% url 'user_home' %}"><img  src=" https://pbs.twimg.com/media/F4nXbsNWcAAl7uD?format=png&name=small" class="w-25"/></a>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                  <li class="nav-item">
+                    <a class="nav-link" style="color: #FFF8F8; font-family: Inter; font-size: 20px" href="{% url 'product_list_user' %}">Products</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" style="color: #FFF8F8; font-family: Inter; font-size: 20px" href="{% url 'about_us_user' %}">About us</a>
+                  </li>
+                </ul>
+                <form method="get" class="mb-3">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="search" placeholder="Search by product name">
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-success">Search</button>
+                        </div>
+                    </div>
+                </form>
+              </div>
+            </nav>
+        </div>
+ <div class="row">
+        <img src="https://www.xylem.com/en-mk/solutions/agriculture-irrigation/contentassets/agriculture.jpg" class="w-100" style="height: 350px">
+    </div>
+    <div class="row" style="background-color: #F0F4E7">
+{#         <ul class="list-group m-3">#}
+
+            {% for product in products %}
+                <div class="card m-2" style="width: 18rem;">
+                 <h5 class="card-title text-center" style="color: #3C9E0E; font-family: Inter">{{ product.name }}</h5><br>
+                    <img class="card-img-top" src="{{ product.image }}" alt="Card image cap">
+
+                    <div class="card-body">
+                        <p class="card-text text-right" style="color: #3C9E0E; font-family: Inter">{{ product.price }} denari</p>
+                         <a href="#" class="btn btn-success text-center"
+   style="font-family: Inter; color: #FDFDFD"
+   data-product-id="{{ product.kod }}"
+   onclick="showBuyWindow('{{ product.kod }}')">Buy</a>
+                        <a href="{% url 'product_details_user' kod=product.kod %}" class="btn btn-success text-center" style="font-family: Inter; color: #FDFDFD">Details</a>
+                    </div>
+                </div>
+{#                <li class="list-group-item">#}
+
+{#                </li>#}
+            {% empty %}
+{#                <li class="list-group-item">No products found.</li>#}
+            {% endfor %}
+{#        </ul>#}
+    </div>
+    <div class="row" style="background-color: #F0F4E7">
+        <a href="{% url 'custom_login' %}" class="text-success">Log out</a>
+    </div>
+
+<div class="modal fade" id="buyModal" tabindex="-1" role="dialog" aria-labelledby="buyModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="buyModalLabel">Buy Product</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Enter the quantity:</p>
+                <input type="number" id="quantityInput" class="form-control">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-success" onclick="addToCart()">Buy</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script>
+    function showBuyWindow(productKod) {
+        document.getElementById('quantityInput').value = 1;  // Reset quantity input
+        $('#buyModal').modal('show');
+        $('#buyModal').attr('data-product-kod', productKod);
+    }
+     function addToCart() {
+        const productKod = $('#buyModal').attr('data-product-kod');
+        const quantity = $('#quantityInput').val();
+
+        $.ajax({
+            type: 'POST',
+            url: '{% url "add_to_cart" %}',
+            data: {
+                product_kod: productKod,
+                quantity: quantity,
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            },
+            success: function(response) {
+                // Handle success, e.g., show a success message
+                $('#buyModal').modal('hide');  // Close the modal
+            },
+            error: function(xhr, errmsg, err) {
+                console.log(errmsg);
+                // Handle error here if needed
+            }
+        });
+    }
+</script>
+</body>
+</html>

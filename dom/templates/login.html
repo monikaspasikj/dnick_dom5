@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+   <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <style>
+        body{
+            background-color: #F0F4E7;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+<div class="row">
+    <div class="col-6 m-5">
+    <img src="https://pbs.twimg.com/media/F4nXbsNWcAAl7uD?format=png&name=small" class="w-50">
+</div>
+<div class="col">
+    <div class="row">
+    <div class="float-right m-5">
+    <div class="m-1">
+        <div class="row mt-1 ml-2 mr-2">
+            <p style="font-size: 16px; font-family: Inter; color: #265312" class="col-12 text-right">Register now!</p>
+        </div>
+        <div  style="width: 105px" class="row float-right  mr-2 ml-2">
+            <a style="font-size: 16px; font-family: Inter; color: #0B551B; background-color: #AAE7B7; "  href="{% url 'custom_register' %}" class="btn  rounded-75 col-12  float-right ">Sign in</a><br>
+        </div>
+    </div>
+
+    <div class="row m-5">
+        <div class="row m-3  text-center">
+            <h1 style="font-size: 32px; font-family: Inter; color: #3C9E0E" class="col-12" >Login</h1>
+        </div>
+    </div>
+    <div class="row float-right mt-5 mb-5 ml-2 mr-2">
+        {% if error_message %}
+        <p>{{ error_message }}</p>
+        {% endif %}
+
+    <div class="row ">
+        <form method="post">
+            {% csrf_token %}
+            <div class="row">
+                <label style="font-size: 20px; font-family: Inter; color: #3C9E0E"  for="email">Email:</label><br>
+            </div>
+            <div class="row">
+               <input type="text" name="email" required>
+            </div>
+            <div class="row">
+                <label style="font-size: 20px; font-family: Inter; color: #3C9E0E" for="password">Password:</label>
+            </div>
+            <div class="row">
+                <input type="password" name="password" required><br>
+            </div>
+            <div style="width: 214px" class="row m-5">
+                <button style="font-size: 16px; font-family: Inter; color: #0B551B; background-color: #17AF39; " type="submit"class="btn  rounded-75 col-12  mr-4 ">Login</button>
+            </div>
+
+        </form>
+    </div>
+
+    </div>
+
+    </div>
+</div>
+
+</div>
+</div>
+
+</div>
+</body>
+</html>

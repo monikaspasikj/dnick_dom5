@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Details</title>
+     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+            <nav style="background-color: #AAE7B7; height: 95px" class="navbar w-100 navbar-expand">
+              <a class="navbar-brand" href="{% url 'public_home' %}">
+{#                  <img class="w-25" src=" images/logo.png"/>#}
+                  <img src="https://pbs.twimg.com/media/F4nXbsNWcAAl7uD?format=png&name=small" class="w-25">
+              </a>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                  <li class="nav-item">
+                    <a class="nav-link" style="color: #FFF8F8; font-family: Inter; font-size: 20px" href="{% url 'product_list_public' %}">Products</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" style="color: #FFF8F8; font-family: Inter; font-size: 20px" href="{% url 'about_us_public' %}">About us</a>
+                  </li>
+                </ul>
+                <form method="get" class="mb-3">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="search" placeholder="Search by product name">
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-success">Search</button>
+                        </div>
+                    </div>
+                </form>
+              </div>
+            </nav>
+        </div>
+    <div class="row " style="background-color: #F0F4E7">
+        <div class="col">
+            <div class="card m-3">
+              <div class="card-body m-3" style="background-color: #F0F4E7">
+                <h5 class="card-title text-center" style="color: #3C9E0E; font-family: Inter">{{  product.name }}</h5>
+                <span style="color: #3C9E0E; font-family: Inter" class="card-text">Price: </span> <p class="card-text" style="font-family: Inter; color: #60C876"> {{ product.price }} denari</p><br>
+                <span style="color: #3C9E0E; font-family: Inter" class="card-text">Category: </span> <p class="card-text" style="font-family: Inter; color: #60C876"> {{ product.category }} </p><br>
+                <span style="color: #3C9E0E; font-family: Inter" class="card-text">How to use? </span> <p class="card-text" style="font-family: Inter; color: #60C876"> {{ product.how_to_use }} </p><br>
+                <span style="color: #3C9E0E; font-family: Inter" class="card-text">What are contains? </span> <p class="card-text" style="font-family: Inter; color: #60C876"> {{ product.contains }} </p><br>
+                <span style="color: #3C9E0E; font-family: Inter" class="card-text">From country: </span> <p class="card-text" style="font-family: Inter; color: #60C876"> {{ product.country }} </p><br>
+                <span style="color: #3C9E0E; font-family: Inter" class="card-text">Date from - to:</span> <p class="card-text" style="font-family: Inter; color: #60C876"> {{ product.date_from }} - {{ product.date_to }}</p><br>
+                  <a href="javascript:history.back()" class="btn btn-success text-center text-white">Back</a>
+              </div>
+            </div>
+        </div>
+        <div class="col">
+             <img class="card-img-top w-75 m-5 mx-auto"  src="{{ product.image }}" alt="Card image cap">
+        </div>
+    </div>
+    <div class="row" style="background-color: #F0F4E7">
+        <a href="{% url 'custom_login' %}" class="text-success">Login</a>
+    </div>
+</div>
+</body>
+</html>

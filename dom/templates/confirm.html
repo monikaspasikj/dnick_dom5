@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registration Confirmation</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <style>
+        body{
+            background-color: #F0F4E7;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-6 m-5">
+            <img src="https://pbs.twimg.com/media/F4nXbsNWcAAl7uD?format=png&name=small" class="w-50">
+        </div>
+        <div class="col w-50 m-5">
+            <div class="row m-5">
+                <h1 style="color:#3C9E0E; font-family: Inter; font-size: 42px" class="text-center">WELL DONE!</h1>
+            </div>
+            <div class="row ">
+                <p class="text-center"  style="color:#3C9E0E; font-family: Inter; font-size: 26px">Now if you want to continue, click on Login</p>
+            </div>
+            <div class="row m-5" style="width: 200px">
+                <a style="font-size: 16px; font-family: Inter;  width:200px; background-color: #3C9E0E; "   href="{% url 'custom_login' %}" class="btn   text-center text-white ">Login</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

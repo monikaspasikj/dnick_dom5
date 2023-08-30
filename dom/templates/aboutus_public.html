@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>About us</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body>
+
+<div class="container">
+ <div class="row">
+            <nav style="background-color: #AAE7B7; height: 95px" class="navbar w-100 navbar-expand">
+              <a class="navbar-brand" href="{% url 'public_home' %}">
+{#                  <img class="w-25" src=" images/logo.png"/>#}
+                  <img src="https://pbs.twimg.com/media/F4nXbsNWcAAl7uD?format=png&name=small" class="w-25">
+              </a>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                  <li class="nav-item">
+                    <a class="nav-link" style="color: #FFF8F8; font-family: Inter; font-size: 20px" href="{% url 'product_list_public' %}">Products</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" style="color: #FFF8F8; font-family: Inter; font-size: 20px" href="{% url 'about_us_public' %}">About us</a>
+                  </li>
+                </ul>
+                <form method="get" class="mb-3">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="search" placeholder="Search by product name">
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-success">Search</button>
+                        </div>
+                    </div>
+                </form>
+              </div>
+            </nav>
+        </div>
+<div class="row" style="background-color: #F0F4E7">
+    <div class="col m-5">
+{#        <img class="w-25" src="images\logo.png"/>#}
+        <<img src="https://pbs.twimg.com/media/F4nXbsNWcAAl7uD?format=png&name=small" class="w-50">
+    </div>
+    <div class="col">
+        <div class="row">
+            <h1 class="text-center text-success">Agro Proizvod 98</h1>
+        </div>
+        <div class="row">
+            <h6 class="text-center text-success">From: 24.11.1998</h6>
+        </div>
+        <div class="row">
+            <h6 class="text-center text-success">Where: Treta Makedonska Udarna Brigada, br.1, Kumanovo, the North Macedonia</h6>
+        </div>
+        <div class="row">
+            <h6 class="text-center text-success">Open-Close: 08:00 - 20:00</h6>
+        </div>
+    </div>
+</div>
+<div class="row" style="background-color: #F0F4E7">
+        <a href="{% url 'custom_login' %}" class="text-success">Login</a>
+    </div>
+</div>
+</body>
+</html>
