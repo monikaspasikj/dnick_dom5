@@ -39,12 +39,12 @@
     <div class="row">
         <img src="https://www.xylem.com/en-mk/solutions/agriculture-irrigation/contentassets/agriculture.jpg" class="w-100" style="height: 350px">
     </div>
-    <div class="row" style="background-color: #F0F4E7">
+    <div class="row " style="background-color: #F0F4E7">
 {#         <ul class="list-group m-3">#}
             {% for product in products %}
-                <div class="card m-2" style="width: 18rem;">
+                <div class="card m-4" style="width: 18rem;">
                 <h5 class="card-title text-center" style="color: #3C9E0E; font-family: Inter">{{ product.name }}</h5><br>
-                    <img class="card-img-top w-50 mx-auto"  src="{{ product.image }}" alt="Card image cap">
+                    <img class="card-img-top w-75 m-5"  style="height: 150px" src="{{ product.image }}" alt="Card image cap">
                     <div class="card-body">
                         <p class="card-text text-center" style="color: #3C9E0E; font-family: Inter">{{ product.price }} denari</p>
                         <a href="{% url 'product_details_public' kod=product.kod %}" class="btn btn-success text-center align-center" style="font-family: Inter; color: #FDFDFD">Details</a>

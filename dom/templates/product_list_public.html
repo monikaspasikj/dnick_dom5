@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
 <div class="container">
@@ -39,9 +40,9 @@
     <div class="row" style="background-color: #F0F4E7">
 {#        <ul class="list-group m-3">#}
             {% for product in page_obj %}
-                <div class="card m-2" style="width: 18rem;">
+                <div class="card m-4" style="width: 18rem;">
                 <h5 class="card-title text-center" style="color: #3C9E0E; font-family: Inter">{{ product.name }}</h5><br>
-                    <img class="card-img-top" src="{{ product.image}}" alt="Card image cap">
+                    <img class="card-img-top w-75 m-5" style="height: 150px" src="{{ product.image}}" alt="Card image cap">
                     <div class="card-body">
                         <p class="card-text text-right" style="color: #3C9E0E; font-family: Inter">{{ product.price }} denari</p>
                         <a href="{% url 'product_details_public' product.kod %}" class="btn btn-success text-center" style="font-family: Inter; color: #FDFDFD">Details</a>

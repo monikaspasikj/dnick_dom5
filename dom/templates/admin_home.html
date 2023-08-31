@@ -40,61 +40,35 @@
               </div>
             </nav>
         </div>
-     <div class="row">
+    <div class="row">
         <img src="https://www.xylem.com/en-mk/solutions/agriculture-irrigation/contentassets/agriculture.jpg" class="w-100" style="height: 350px">
     </div>
-    <div class="row" style="background-color: #F0F4E7">
+    <div class="row " style="background-color: #F0F4E7">
 {#         <ul class="list-group m-3">#}
             {% for product in products %}
-                <div class="card m-2" style="width: 18rem;">
-                <h5 class="card-title text-center" style="color: #3C9E0E; font-family: Inter">{{ product.name }}</h5><br>
-                    <img class="card-img-top" src="{{ product.image }}" alt="Card image cap">
-                    <div class="card-body">
-                        <p class="card-text text-right" style="color: #3C9E0E; font-family: Inter">{{ product.price }} denari</p>
-                        <form method="post" action="{% url 'delete_product' kod=product.kod %}">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-success">Delete</button>
-                        </form>
-                    <a href="{% url 'edit_product' kod=product.kod %}" class="btn btn-success">Edit</a>
+                <div class="card m-4" style="width: 18rem;" >
+                        <h5 class="card-title text-center" style="color: #3C9E0E; font-family: Inter">{{ product.name }}</h5><br>
+                            <img class="card-img-top w-75 m-5" style="height: 150px" src="{{ product.image }}" alt="Card image cap">
+                            <div class="card-body">
+                                <p class="card-text text-right" style="color: #3C9E0E; font-family: Inter">{{ product.price }} denari</p>
+                                <form method="post" action="{% url 'delete_product' kod=product.kod %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-success">Delete</button>
+                                </form>
+                                <a href="{% url 'edit_product' kod=product.kod %}" class="btn btn-success">Edit</a>
+                            </div>
                     </div>
-
-
-                    </div>
+                {% empty %}
+         {% endfor %}
                 </div>
-{#                <li class="list-group-item">#}
-
-{#                </li>#}
-            {% empty %}
-{#                <li class="list-group-item">No products found.</li>#}
-            {% endfor %}
-{#        </ul>#}
 <div class="row" style="background-color: #F0F4E7">
-        <a href="{% url 'custom_login' %}" class="text-success">Log out</a>
+        <a href="{% url 'custom_logout' %}" class="text-success">Log out</a>
     </div>
-    </div>
+
+{#                <li class="list-group-item">No products found.</li>#}
+
+
 
 </div>
-{#<script>#}
-{#    function deleteProduct(button) {#}
-{#        const kod = button.getAttribute('data-product-id');#}
-{##}
-{#        $.ajax({#}
-{#            type: 'POST',#}
-{#            url: '{% url "delete_product" %}',  // Replace with your actual URL#}
-{#            data: {#}
-{#                product_kod: kod,#}
-{#                csrfmiddlewaretoken: '{{ csrf_token }}'#}
-{#            },#}
-{#            success: function(response) {#}
-{#                const productElement = button.closest('.list-group-item');#}
-{#                productElement.remove();#}
-{#            },#}
-{#            error: function(xhr, errmsg, err) {#}
-{#                console.log(errmsg);#}
-{#                // Handle error here if needed#}
-{#            }#}
-{#        });#}
-{#    }#}
-{#</script>#}
 </body>
 </html>

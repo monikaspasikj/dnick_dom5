@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 
 from .form import ProductForm
@@ -72,6 +72,10 @@ def custom_login(request):
         user = authenticate(username=email, password=password)  # Use email as username
         if user is not None:
             login(request, user)
+            # Check for the 'next' parameter
+            next_url = request.GET.get('next')
+            if next_url:
+                return redirect(next_url)
             # Redirect to the appropriate home page based on user role
             if user.is_superuser:
                 return redirect('admin_home')
@@ -81,6 +85,9 @@ def custom_login(request):
             return render(request, 'login.html', {'error': 'Invalid credentials'})
     return render(request, 'login.html')
 
+def custom_logout(request):
+    logout(request)
+    return redirect('custom_login')
 
 def custom_register(request):
     if request.method == 'POST':
@@ -217,18 +224,85 @@ def edit_product(request, kod):
     context = {'form': form, 'product': product}
     return render(request, 'edit_product.html', context)
 
-def add_to_cart(request):
+
+def shopping_cart(request):
+    product_kod = request.GET.get('product_kod')
+    product_name = request.GET.get('product_name')
+    product_price = request.GET.get('product_price')
+
+    if request.method == 'GET':
+        orders = [{
+            'product_name': product_name,
+            'product_price': product_price,
+            'quantity': 1,
+            'total_price': product_price
+        }]
+        context = {
+            'orders': orders,
+        }
+        return render(request, 'shopping_cart.html', context)
+
+    elif request.method == 'POST':
+        if request.user.is_authenticated and hasattr(request.user, 'customer'):
+            customer = request.user.customer
+            product = Product.objects.get(kod=product_kod)
+
+            order, created = Order.objects.get_or_create(customer=customer, product=product)
+
+            if not created:
+                order.quantity += 1
+                order.save()
+
+            return redirect('shopping_cart')
+        else:
+            return redirect('custom_login')
+
+def update_cart_item_quantity(request):
     if request.method == 'POST':
-        product_kod = request.POST.get('product_kod')
-        quantity = int(request.POST.get('quantity', 1))
-        product = get_object_or_404(Product, kod=product_kod)
+        order_id = request.POST.get('order_id')
+        new_quantity = int(request.POST.get('new_quantity'))
 
-        order, created = Order.objects.get_or_create(customer=request.user.customer)
+        order = Order.objects.get(id=order_id)
+        order.quantity = new_quantity
+        order.save()
 
-        order_product, created = OrderProduct.objects.get_or_create(order=order, product=product)
-        order_product.quantity += quantity
-        order_product.save()
+        new_total_price = order.product.price * order.quantity
+        response_data = {
+            'success': True,
+            'new_total_price': new_total_price,
+        }
+        return JsonResponse(response_data)
+    return JsonResponse({'success': False})
 
-        return JsonResponse({'message': 'Product added to cart.'})
 
-    return JsonResponse({'error': 'Invalid request method.'}, status=400)
+def remove_cart_item(request):
+    if request.method == 'POST':
+        order_id = request.POST.get('order_id')
+        try:
+            order = Order.objects.get(id=order_id)
+            order.delete()
+            return JsonResponse({'success': True})
+        except Order.DoesNotExist:
+            return JsonResponse({'success': False})
+    return JsonResponse({'success': False})
+
+def create_order(request, product_kod):
+    if request.method == 'POST':
+        if request.user.is_authenticated and hasattr(request.user, 'customer'):
+            customer = request.user.customer
+            product = Product.objects.get(kod=product_kod)
+
+            # Create an order for the customer and product
+            order, created = Order.objects.get_or_create(customer=customer, product=product)
+
+            if not created:
+                # If the order already exists, increase the quantity
+                order.quantity += 1
+                order.save()
+
+            messages.success(request, 'Order made successfully!')
+            return redirect('shopping_cart')
+
+    # Handle cases where the order creation fails
+    messages.error(request, 'Failed to make the order.')
+    return redirect('shopping_cart')

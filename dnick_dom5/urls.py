@@ -20,7 +20,8 @@ from django.conf.urls.static import static
 
 from dom.views import custom_login, custom_register, confirmation, public_home, user_home, admin_home, \
     product_list_admin, product_list_user, product_list_public, delete_product, about_us_public, about_us_user, \
-    about_us_admin, product_details_user, add_product, edit_product, add_to_cart, product_details_public
+    about_us_admin, product_details_user, add_product, edit_product, product_details_public, shopping_cart, \
+    remove_cart_item, update_cart_item_quantity, custom_logout, create_order
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -43,10 +44,12 @@ urlpatterns = [
     path('aboutus_admin/', about_us_admin, name='about_us_admin'),
     path('add_product/', add_product, name='add_product'),
     path('edit_product/<str:kod>/', edit_product, name='edit_product'),
-    path('add_to_cart/', add_to_cart, name='add_to_cart'),
+    path('shopping_cart/', shopping_cart, name='shopping_cart'),
+path('update_cart_item_quantity/', update_cart_item_quantity, name='update_cart_item_quantity'),
+    path('remove_cart_item/', remove_cart_item, name='remove_cart_item'),
+path('custom_logout/', custom_logout, name='custom_logout'),
+path('create_order/<str:product_kod>/', create_order, name='create_order'),
+
+
 ]
               # + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
-
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
